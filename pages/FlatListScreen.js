@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   FlatList,
   View,
@@ -7,6 +7,8 @@ import {
   Button,
   RefreshControl,
   Platform,
+  TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 
 const dataArray = [
@@ -25,6 +27,7 @@ const dataArray = [
 function FlatListScreen({navigation}) {
   const [dataList, setDataList] = useState([]);
   const [loadingStatus, setLoadingStatus] = useState(false);
+  const [selected, setSelected] = useState(new Map());
 
   const loadData = () => {
     setLoadingStatus(true);
@@ -39,6 +42,15 @@ function FlatListScreen({navigation}) {
       setLoadingStatus(false);
     }, 1000);
   };
+
+  const onSelect = useCallback(
+    (city) => {
+      const newSelected = new Map(selected);
+      newSelected.set(city, !selected.get(city));
+      setSelected(newSelected);
+    },
+    [selected],
+  );
 
   useEffect(() => {
     loadData();
@@ -68,16 +80,38 @@ function FlatListScreen({navigation}) {
           )
         }
         keyExtractor={(item) => item}
-        renderItem={({index, item}) => (
-          <View
-            style={[styles.item, {backgroundColor: 'blue'}]}
-            onPress={() => console.log(444444)}>
-            <Text
-              style={[styles.text]}
-              onPress={() => navigation.navigate('DetailScreen', {city: item})}>
-              {item}
-            </Text>
+        extraData={selected}
+        ListFooterComponent={
+          <View style={styles.more}>
+            <ActivityIndicator />
+            <Text style={styles.moreTips}>火速加载中...</Text>
           </View>
+        }
+        onEndReached={(distanceFromEnd) => {
+          setTimeout(() => {
+            setDataList(
+              dataArray.concat(
+                dataList.map((item) => item + Date.now() + Math.random()),
+              ),
+            );
+          }, 1000);
+        }}
+        onEndReachedThreshold={0.1}
+        renderItem={({index, item}) => (
+          <TouchableOpacity activeOpacity={1} onPress={() => onSelect(item)}>
+            <View style={[styles.item, {backgroundColor: 'blue'}]}>
+              <Text
+                style={[
+                  styles.text,
+                  {color: selected.get(item) ? 'red' : 'white'},
+                ]}
+                onPress={() =>
+                  navigation.navigate('DetailScreen', {city: item})
+                }>
+                {item}
+              </Text>
+            </View>
+          </TouchableOpacity>
         )}
       />
     </View>
@@ -149,8 +183,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#f00',
   },
   text: {
-    color: '#fff',
     fontSize: 20,
+  },
+  more: {
+    flex: 1,
+    flexDirection: 'row',
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  moreTips: {
+    marginLeft: 10,
   },
 });
 
