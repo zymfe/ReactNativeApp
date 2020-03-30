@@ -15,7 +15,8 @@ import DetailScreen from './pages/Detail';
 
 const Stack = createStackNavigator();
 
-function App() {
+function App(props) {
+  console.log('App props: ', props);
   return (
     <NavigationContainer>
       <Stack.Navigator>
