@@ -11,12 +11,12 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View>
+        <Text>矢量图表</Text>
+        <Icon name="enviroment" size={30} color="#900" />
         <Button
           title="Go to FlatListScreen"
           onPress={() => this.props.navigation.navigate('FlatListScreen')}
         />
-        <Text>矢量图表</Text>
-        <Icon name="enviroment" size={30} color="#900" />
       </View>
     );
   }

@@ -10,10 +10,12 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import HomeScreen from './pages/Home';
 import FlatListScreen from './pages/FlatListScreen';
 import DetailScreen from './pages/Detail';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {Button} from 'react-native';
 
 // const Stack = createStackNavigator();
 //
@@ -30,14 +32,30 @@ import Icon from 'react-native-vector-icons/AntDesign';
 //   );
 // }
 
-const HomeStack = createStackNavigator();
+const CityStack = createStackNavigator();
 
-function HomeStackScreen() {
+function CityStackScreen() {
   return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen name="Home" component={HomeScreen} />
-      <HomeStack.Screen name="DetailScreen" component={DetailScreen} />
-    </HomeStack.Navigator>
+    <CityStack.Navigator>
+      <CityStack.Screen name="FlatListScreen" component={FlatListScreen} />
+      <CityStack.Screen
+        name="DetailScreen"
+        component={DetailScreen}
+        options={({navigation, route}) => {
+          console.log('navigation: ', navigation);
+          console.log('route: ', route);
+          return {
+            headerTitle: 'customer header Title',
+            headerRight: () => (
+              <Button
+                title={'Info'}
+                onPress={() => console.log('This is a button!')}
+              />
+            ),
+          };
+        }}
+      />
+    </CityStack.Navigator>
   );
 }
 
@@ -53,7 +71,6 @@ function App() {
               Home: 'home',
               FlatListScreen: 'link',
             };
-
             return (
               <Icon
                 name={mapRouteToIcon[route.name]}
@@ -67,8 +84,8 @@ function App() {
           activeTintColor: 'red',
           inactiveTintColor: 'gray',
         }}>
-        <Tab.Screen name="Home" component={HomeStackScreen} />
-        <Tab.Screen name="FlatListScreen" component={FlatListScreen} />
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="FlatListScreen" component={CityStackScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

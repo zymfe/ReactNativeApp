@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, useLayoutEffect} from 'react';
 import {
   FlatList,
   View,
@@ -28,6 +28,7 @@ function FlatListScreen({navigation}) {
   const [dataList, setDataList] = useState([]);
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [selected, setSelected] = useState(new Map());
+  const [count, setCount] = useState(0);
 
   const loadData = () => {
     setLoadingStatus(true);
@@ -56,8 +57,22 @@ function FlatListScreen({navigation}) {
     loadData();
   }, []);
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <Button
+            onPress={() => setCount(count + 1)}
+            title={'update count: ' + count}
+          />
+        );
+      },
+    });
+  });
+
   return (
     <View style={styles.container}>
+      <Text>Count: {count}</Text>
       <FlatList
         data={dataList}
         refreshControl={
