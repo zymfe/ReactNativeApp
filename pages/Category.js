@@ -4,11 +4,18 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 
 const Tab = createMaterialTopTabNavigator();
 
-function Feed() {
+function Feed({navigation}) {
   console.log(1);
   return (
     <View>
-      <Text>Feed</Text>
+      <Button
+        title="修改主题"
+        onPress={() => {
+          navigation.setParams({
+            theme: 'blue',
+          });
+        }}
+      />
     </View>
   );
 }
@@ -38,6 +45,8 @@ function Category({navigation}) {
       headerRight: () => <Button title={'update count'} />,
     });
   });
+
+  console.log('category render');
 
   return (
     <Tab.Navigator

@@ -56,7 +56,7 @@ function CategoryStackScreen() {
 
 const Tab = createBottomTabNavigator();
 
-function App() {
+function App({navigation}) {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -80,7 +80,13 @@ function App() {
           activeTintColor: 'red',
           inactiveTintColor: 'gray',
         }}>
-        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            tabBarLabel: '首页',
+          }}
+        />
         <Tab.Screen name="FlatListScreen" component={CityStackScreen} />
         <Tab.Screen name="CategoryScreen" component={CategoryStackScreen} />
       </Tab.Navigator>
