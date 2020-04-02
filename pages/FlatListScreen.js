@@ -120,9 +120,11 @@ function FlatListScreen({navigation}) {
                   styles.text,
                   {color: selected.get(item) ? 'red' : 'white'},
                 ]}
-                onPress={() =>
-                  navigation.navigate('DetailScreen', {city: item})
-                }>
+                onPress={() => {
+                  const jumpFn =
+                    index % 2 === 0 ? navigation.replace : navigation.navigate;
+                  jumpFn('DetailScreen', {city: item});
+                }}>
                 {item}
               </Text>
             </View>

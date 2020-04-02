@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 class HomeScreen extends React.Component {
   constructor(props) {
+    console.log('props: ', props);
     super(props);
   }
 
