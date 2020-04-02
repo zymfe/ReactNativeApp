@@ -34,12 +34,8 @@ function Profile() {
 function Category({navigation}) {
   useEffect(() => {
     navigation.setOptions({
-      headerLeft: () => {
-        return <Button title="hello" />;
-      },
-      headerRight: () => {
-        return <Button title={'update count'} />;
-      },
+      headerLeft: () => <Button title="hello" />,
+      headerRight: () => <Button title={'update count'} />,
     });
   });
 
