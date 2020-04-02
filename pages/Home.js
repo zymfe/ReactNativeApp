@@ -1,5 +1,7 @@
 import React from 'react';
-import {View, Button} from 'react-native';
+import {View, Button, Text} from 'react-native';
+// import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 class HomeScreen extends React.Component {
   constructor(props) {
@@ -13,6 +15,8 @@ class HomeScreen extends React.Component {
           title="Go to FlatListScreen"
           onPress={() => this.props.navigation.navigate('FlatListScreen')}
         />
+        <Text>矢量图表</Text>
+        <Icon name="enviroment" size={30} color="#900" />
       </View>
     );
   }
