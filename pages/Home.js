@@ -17,6 +17,10 @@ class HomeScreen extends React.Component {
           title="Go to FlatListScreen"
           onPress={() => this.props.navigation.navigate('FlatListScreen')}
         />
+        <Button
+          title="Go to CategoryScreen"
+          onPress={() => this.props.navigation.navigate('CategoryScreen')}
+        />
       </View>
     );
   }

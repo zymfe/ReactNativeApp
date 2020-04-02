@@ -10,27 +10,12 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import HomeScreen from './pages/Home';
 import FlatListScreen from './pages/FlatListScreen';
 import DetailScreen from './pages/Detail';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {Button} from 'react-native';
-
-// const Stack = createStackNavigator();
-//
-// function App(props) {
-//   console.log('App props: ', props);
-//   return (
-//     <NavigationContainer>
-//       <Stack.Navigator>
-//         <Stack.Screen name="Home" component={HomeScreen} />
-//         <Stack.Screen name="FlatListScreen" component={FlatListScreen} />
-//         <Stack.Screen name="DetailScreen" component={DetailScreen} />
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// }
+import CategoryScreen from './pages/Category';
 
 const CityStack = createStackNavigator();
 
@@ -59,6 +44,16 @@ function CityStackScreen() {
   );
 }
 
+const CategotyStack = createStackNavigator();
+
+function CategoryStackScreen() {
+  return (
+    <CategotyStack.Navigator>
+      <CategotyStack.Screen name="CategoryScreen" component={CategoryScreen} />
+    </CategotyStack.Navigator>
+  );
+}
+
 const Tab = createBottomTabNavigator();
 
 function App() {
@@ -70,6 +65,7 @@ function App() {
             const mapRouteToIcon = {
               Home: 'home',
               FlatListScreen: 'link',
+              Category: 'antdesign',
             };
             return (
               <Icon
@@ -86,6 +82,7 @@ function App() {
         }}>
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="FlatListScreen" component={CityStackScreen} />
+        <Tab.Screen name="CategoryScreen" component={CategoryStackScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

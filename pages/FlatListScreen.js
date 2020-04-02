@@ -33,7 +33,7 @@ function FlatListScreen({navigation}) {
   const loadData = () => {
     setLoadingStatus(true);
     setTimeout(() => {
-      const dataList = dataArray.sort(() => Math.random() > 0.5);
+      dataArray.sort(() => Math.random() > 0.5);
       const total = dataArray.length;
       for (let i = 0; i < total; i++) {
         const random = Math.floor(Math.random() * total);
@@ -45,7 +45,7 @@ function FlatListScreen({navigation}) {
   };
 
   const onSelect = useCallback(
-    (city) => {
+    city => {
       const newSelected = new Map(selected);
       newSelected.set(city, !selected.get(city));
       setSelected(newSelected);
@@ -94,7 +94,7 @@ function FlatListScreen({navigation}) {
             />
           )
         }
-        keyExtractor={(item) => item}
+        keyExtractor={item => item}
         extraData={selected}
         ListFooterComponent={
           <View style={styles.more}>
@@ -102,11 +102,11 @@ function FlatListScreen({navigation}) {
             <Text style={styles.moreTips}>火速加载中...</Text>
           </View>
         }
-        onEndReached={(distanceFromEnd) => {
+        onEndReached={distanceFromEnd => {
           setTimeout(() => {
             setDataList(
               dataArray.concat(
-                dataList.map((item) => item + Date.now() + Math.random()),
+                dataList.map(item => item + Date.now() + Math.random()),
               ),
             );
           }, 1000);
