@@ -7,15 +7,21 @@
  */
 
 import React from 'react';
+
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from './pages/Home';
-import FlatListScreen from './pages/FlatListScreen';
-import DetailScreen from './pages/Detail';
+
+import {Provider} from 'react-redux';
+import store from './js/store/store';
+
 import Icon from 'react-native-vector-icons/AntDesign';
 import {Button} from 'react-native';
-import CategoryScreen from './pages/Category';
+
+import HomeScreen from './js/pages/Home';
+import FlatListScreen from './js/pages/FlatListScreen';
+import DetailScreen from './js/pages/Detail';
+import CategoryScreen from './js/pages/Category';
 
 const CityStack = createStackNavigator();
 
@@ -58,39 +64,41 @@ const Tab = createBottomTabNavigator();
 
 function App({navigation}) {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({route}) => ({
-          tabBarIcon: ({focused, color, size}) => {
-            const mapRouteToIcon = {
-              Home: 'home',
-              FlatListScreen: 'link',
-              Category: 'antdesign',
-            };
-            return (
-              <Icon
-                name={mapRouteToIcon[route.name]}
-                size={size}
-                color={color}
-              />
-            );
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: 'red',
-          inactiveTintColor: 'gray',
-        }}>
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarLabel: '首页',
-          }}
-        />
-        <Tab.Screen name="FlatListScreen" component={CityStackScreen} />
-        <Tab.Screen name="CategoryScreen" component={CategoryStackScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({route}) => ({
+            tabBarIcon: ({focused, color, size}) => {
+              const mapRouteToIcon = {
+                Home: 'home',
+                FlatListScreen: 'link',
+                Category: 'antdesign',
+              };
+              return (
+                <Icon
+                  name={mapRouteToIcon[route.name]}
+                  size={size}
+                  color={color}
+                />
+              );
+            },
+          })}
+          tabBarOptions={{
+            activeTintColor: 'red',
+            inactiveTintColor: 'gray',
+          }}>
+          <Tab.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              tabBarLabel: '首页',
+            }}
+          />
+          <Tab.Screen name="FlatListScreen" component={CityStackScreen} />
+          <Tab.Screen name="CategoryScreen" component={CategoryStackScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
