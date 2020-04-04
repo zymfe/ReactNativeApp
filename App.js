@@ -22,6 +22,7 @@ import HomeScreen from './js/pages/Home';
 import FlatListScreen from './js/pages/FlatListScreen';
 import DetailScreen from './js/pages/Detail';
 import CategoryScreen from './js/pages/Category';
+import FetchScreen from './js/pages/FetchScreen';
 
 const CityStack = createStackNavigator();
 
@@ -57,6 +58,16 @@ function CategoryStackScreen() {
     <CategotyStack.Navigator>
       <CategotyStack.Screen name="CategoryScreen" component={CategoryScreen} />
     </CategotyStack.Navigator>
+  );
+}
+
+const FetchStack = createStackNavigator();
+
+function FetchStackScreen() {
+  return (
+    <FetchStack.Navigator>
+      <FetchStack.Screen name="FetchScreen" component={FetchScreen} />
+    </FetchStack.Navigator>
   );
 }
 
@@ -96,6 +107,7 @@ function App({navigation}) {
           />
           <Tab.Screen name="FlatListScreen" component={CityStackScreen} />
           <Tab.Screen name="CategoryScreen" component={CategoryStackScreen} />
+          <Tab.Screen name="FetchStackScreen" component={FetchStackScreen} />
         </Tab.Navigator>
       </NavigationContainer>
     </Provider>

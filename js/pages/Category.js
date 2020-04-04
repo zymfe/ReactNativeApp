@@ -69,14 +69,14 @@ function Category(props) {
   return (
     <React.Fragment>
       <View>
-        {props.data.map(item => (
+        {props.data.map((item) => (
           <Text>{item.title}</Text>
         ))}
         <Button
           title="add name"
           onPress={() => props.addName({title: 'world'})}></Button>
 
-        {props.users.map(item => (
+        {props.users.map((item) => (
           <Text>{item.name}</Text>
         ))}
         <Button
@@ -134,16 +134,16 @@ function Category(props) {
   );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     data: state.nameReducer.data,
     users: state.userReducer.users,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  addName: data => dispatch(addName(data)),
-  addUser: user => dispatch(addUser(user)),
+const mapDispatchToProps = (dispatch) => ({
+  addName: (data) => dispatch(addName(data)),
+  addUser: (user) => dispatch(addUser(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category);
