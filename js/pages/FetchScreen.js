@@ -1,9 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import {View, TextInput, Text, Button, StyleSheet} from 'react-native';
+import {
+  View,
+  TextInput,
+  Text,
+  Button,
+  StyleSheet,
+  AsyncStorage,
+} from 'react-native';
 
 const url = 'https://api.github.com/search/repositories?q=';
 
-export default function FetchScreen() {
+export default function FetchScreen({navigation}) {
   const [content, setContent] = useState('');
   const [searchResult, setSearchResult] = useState('');
 
@@ -30,6 +37,23 @@ export default function FetchScreen() {
 
   return (
     <React.Fragment>
+      <Button
+        title="Go go Category"
+        onPress={() => {
+          navigation.navigate('DetailScreen', {city: '自定义'});
+        }}></Button>
+      <Button
+        title="save data"
+        onPress={() => {
+          AsyncStorage.setItem('content', content.toString()).then((res) =>
+            console.log(res),
+          );
+        }}></Button>
+      <Button
+        title="get data"
+        onPress={() => {
+          AsyncStorage.getItem('content').then((res) => console.log(res));
+        }}></Button>
       <TextInput
         defaultValue="werwer"
         placeholder="请输入搜索内容"
